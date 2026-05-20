@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+</head>
+<style>
+
+        .card{
+            background:white;
+            padding:28px;
+            border-radius:12px;
+            box-shadow:0 6px 20px rgba(0,0,0,.08);
+            width:360px;
+        }
+
+        h2{
+            text-align:center;
+            margin-bottom:18px;
+        }
+
+        label{
+            display:block;
+            font-size:13px;
+            margin-top:10px;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            border-radius:8px;
+            border:1px solid #d1d5db;
+            margin-top:6px;
+            box-sizing:border-box;
+        }
+
+        button{
+            margin-top:16px;
+            width:100%;
+            padding:10px;
+            border-radius:8px;
+            border:0;
+            background:#2563eb;
+            color:white;
+            font-weight:600;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#1d4ed8;
+        }
+
+        p.note{
+            font-size:12px;
+            color:#374151;
+            margin-top:12px;
+            text-align:center;
+        }
+
+        .login-link{
+            display:block;
+            text-align:center;
+            margin-top:15px;
+            text-decoration:none;
+            color:#2563eb;
+            font-weight:600;
+        }
+
+        .login-link:hover{
+            text-decoration:underline;
+        }
+        .header {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    background: linear-gradient(90deg, #0f172a, #1e293b);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Logo circle */
+.logo-icon {
+    width: 45px;
+    height: 45px;
+    background: #00d4ff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    box-shadow: 0 0 15px #00d4ff;
+}
+
+/* Inner symbol */
+.logo-icon span {
+    font-size: 22px;
+    font-weight: bold;
+    color: #0f172a;
+}
+
+/* Brand name */
+.brand {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: white;
+}
+
+/* Glow effect */
+.brand span {
+    color: #00d4ff;
+    text-shadow: 0 0 10px #00d4ff;
+}
+
+    </style>
+
+<body>
+<center>
+    <div class="header">
+    <div class="logo-icon">
+        <span>SK</span>
+    </div>
+    <div class="brand">
+        <span>Sk</span>loora
+    </div>
+</div>
+<pre>
+
+</pre>
+
+<div class="card">
+
+    <h2>Signup</h2>
+
+    <form action="/signup" method="post">
+        
+        <label>Email</label>
+        <input name="email" id="email" type="email" required minlength="6" placeholder="Email">
+        <br>
+        <label>Username</label>
+        <input name="username" id="username" type="text" required minlength="6" placeholder="Username">
+        <br>
+        <label>Passsword</label>
+        <input name="password" id="password" type="password" required minlength="8" placeholder="Password">
+        <br>
+        <label>Description</label>
+        <input name="des" id="des" type="text" required minlength="20" placeholder="Description">
+         <br>
+        <pre>
+
+        </pre>
+        <button type="submit">Submit</button>
+
+        <h3>Already have an account? <a href="/Login">Login</a></h3>
+
+        <br>
+        <h2 th:text="${result}"></h2>
+
+  
+    </form>
+</div>
+</center>
+</body>
+</html>

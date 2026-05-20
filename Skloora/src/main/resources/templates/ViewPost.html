@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Posts</title>
+
+    <style>
+
+        body{
+            background:#f3f4f6;
+            font-family:Arial, sans-serif;
+        }
+
+        .feed{
+            display:flex;
+            justify-content:center;
+            padding:20px;
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            border-radius:12px;
+            box-shadow:0 6px 20px rgba(0,0,0,.08);
+            width:420px;
+            max-height:85vh;
+            overflow-y:auto;
+        }
+
+        .post{
+            padding:15px 0;
+        }
+
+        .post-text{
+            font-size:14px;
+            margin-bottom:10px;
+            color:#111827;
+        }
+
+        img, iframe, video{
+            width:100%;
+            height:auto;
+            border-radius:10px;
+            margin-top:8px;
+            display:block;
+        }
+
+        .meta-section{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-top:8px;
+        }
+
+        .meta{
+            font-size:13px;
+            color:#6b7280;
+        }
+
+        .like-btn{
+            border:none;
+            background:none;
+            cursor:pointer;
+            font-size:18px;
+        }
+
+        .like-area{
+            display:flex;
+            align-items:center;
+            gap:5px;
+        }
+
+        .line{
+            color:#9ca3af;
+            font-weight:bold;
+            letter-spacing:1px;
+            margin-top:15px;
+            overflow:hidden;
+            white-space:nowrap;
+        }
+
+        h2{
+            text-align:center;
+            margin-bottom:15px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<h2>Skloora Feed</h2>
+
+<div class="feed">
+<div class="card">
+
+   <div class="post" th:each="post : ${posts}">
+
+    <h3 th:text="${post.post_by}"></h3>
+
+    <p th:text="${post.post_des}"></p>
+
+    <!-- IMAGE -->
+    <img th:if="${post.media_type == 'img'}"
+         th:src="${post.path}">
+
+    <!-- VIDEO -->
+    <video th:if="${post.media_type == 'video'}"
+           controls>
+
+        <source th:src="${post.path}">
+    </video>
+
+    <!-- DATE + LIKE -->
+    <div class="meta-section">
+
+        <div class="meta"
+             th:text="${post.post_date}">
+        </div>
+
+        <div class="like-area">
+
+            <button class="like-btn"
+                    onclick="likePost(this)">
+                🤍
+            </button>
+
+            <span class="like-count">0</span>
+
+        </div>
+
+    </div>
+
+    <div class="line">
+---------------------------------------------------------------------------
+    </div>
+
+</div>
+
+</div>
+</div>
+
+<script>
+function getPostId(postElement) {
+    // fallback identifier using text (better: use DB post id later)
+    return postElement.querySelector("h3").innerText + 
+           postElement.querySelector(".post-text")?.innerText;
+}
+
+function likePost(button) {
+
+    const post = button.closest(".post");
+    const countElement = post.querySelector(".like-count");
+
+    const postId = getPostId(post);
+
+    let likesDB = JSON.parse(localStorage.getItem("likesDB") || "{}");
+
+    let isLiked = likesDB[postId]?.liked || false;
+    let count = likesDB[postId]?.count || parseInt(countElement.innerText || "0");
+
+    if (!isLiked) {
+        isLiked = true;
+        count++;
+        button.innerText = "❤️";
+    } else {
+        isLiked = false;
+        count = Math.max(0, count - 1);
+        button.innerText = "🤍";
+    }
+
+    likesDB[postId] = {
+        liked: isLiked,
+        count: count
+    };
+
+    localStorage.setItem("likesDB", JSON.stringify(likesDB));
+
+    countElement.innerText = count;
+}
+
+// restore likes on page load
+window.onload = function () {
+    let likesDB = JSON.parse(localStorage.getItem("likesDB") || "{}");
+
+    document.querySelectorAll(".post").forEach(post => {
+        const postId = getPostId(post);
+        const data = likesDB[postId];
+
+        if (data) {
+            const btn = post.querySelector(".like-btn");
+            const countEl = post.querySelector(".like-count");
+
+            countEl.innerText = data.count;
+
+            if (data.liked) {
+                btn.innerText = "❤️";
+            }
+        }
+    });
+}
+</script>
+
+</body>
+</html>
