@@ -146,9 +146,9 @@ Instead of relying on a single backend process, multiple backend instances can r
          │ Load Balancer│
          └───────┬──────┘
                  │
-       ┌─────────┼─────────┐
-       ▼         ▼         ▼
-    Server 1  Server 2  Server 3
+       ┌─────────────────┐
+       ▼                  ▼
+    Server 1            Server 2
 ```
 
 Additional instances can be introduced as traffic increases.
