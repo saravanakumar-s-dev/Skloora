@@ -18,7 +18,6 @@ public class LoadBalancerService {
     private final List<String> servers = List.of(
             "http://localhost:8081",
             "http://localhost:8082"
-            //"http://localhost:8083"
     );
 
     private final AtomicInteger currentServer = new AtomicInteger(0);
