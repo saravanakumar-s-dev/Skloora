@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>dashboard</title>
+        <style>
+
+              body{
+            background:#f3f4f6;
+            font-family:Arial, sans-serif;
+        }
+
+        .card{
+            background:white;
+            padding:28px;
+            border-radius:12px;
+            box-shadow:0 6px 20px rgba(0,0,0,.08);
+            width:360px;
+        }
+        
+
+        h2{
+            text-align:center;
+            margin-bottom:18px;
+        }
+
+        label{
+            display:block;
+            font-size:13px;
+            margin-top:10px;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            border-radius:8px;
+            border:1px solid #d1d5db;
+            margin-top:6px;
+            box-sizing:border-box;
+        }
+
+
+        p.note{
+            font-size:12px;
+            color:#374151;
+            margin-top:12px;
+            text-align:center;
+        }
+
+        .login-link{
+            display:block;
+            text-align:center;
+            margin-top:15px;
+            text-decoration:none;
+            color:#2563eb;
+            font-weight:600;
+        }
+
+        .login-link:hover{
+            text-decoration:underline;
+        }
+        .header {
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    background: linear-gradient(90deg, #0f172a, #1e293b);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Logo circle */
+.logo-icon {
+    width: 45px;
+    height: 45px;
+    background: #00d4ff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    box-shadow: 0 0 15px #00d4ff;
+}
+
+/* Inner symbol */
+.logo-icon span {
+    font-size: 22px;
+    font-weight: bold;
+    color: #0f172a;
+}
+
+/* Brand name */
+.brand {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: white;
+}
+
+/* Glow effect */
+.brand span {
+    color: #00d4ff;
+    text-shadow: 0 0 10px #00d4ff;
+}
+
+            .search-container {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.search-box {
+    width: 450px;
+    display: flex;
+    gap: 10px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: #00d4ff;
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+}
+
+.search-box button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #0f172a;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background: #1e293b;
+}
+
+    </style>
+    </head>
+    <body>
+                    <div class="header">
+    <div class="logo-icon">
+        <span>SK</span>
+    </div>
+    <div class="brand">
+        <span>Sk</span>loora
+    </div>
+</div>
+<pre>
+
+</pre>
+       <pre>
+
+        </pre>
+<center>
+
+    <h2>
+        <a th:href="@{/getAllMSG}">See all your new messages</a>
+    </h2>
+
+    <h2>
+        <a th:href="@{/CreatePost}">Create your post</a>
+    </h2>
+
+    <h2>
+        <a th:href="@{/getAllPost}">See your feeds</a>
+    </h2>
+
+    <h2>
+        <a th:href="@{/auth/changePassword}">Change Password</a>
+    </h2>
+
+    <h2>
+        <a th:href="@{/logout}">Logout</a>
+    </h2>
+
+</center>
+
+                    <hr>
+
+                    <div class="search-container">
+
+       <form th:action="@{/searchDevelopers}" method="get" class="search-box">
+
+    <input
+        type="text"
+        name="query"
+        placeholder="Search developers..."
+        required>
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
+                    </div>
+
+<center>
+                    <div th:each="d : ${developers}" class="card">
+
+                        <h3 th:text="${d.dev_name}">
+                            Username
+                        </h3>
+
+                        <p>
+                            <b>Specification</b>
+                            <span th:text="${d.dev_des}"></span>
+                        </p>
+
+                        <p>
+                            <b>Email</b>
+                            <span th:text="${d.dev_email}"></span>
+                        </p>
+
+                        <a th:href="@{/sendmsg/{id}(id=${d.msg_id})}">
+                            <button type="button">Message</button>
+                        </a>
+
+                    </div>
+
+</center>
+    </body>
+</html>
