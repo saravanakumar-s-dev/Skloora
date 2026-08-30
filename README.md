@@ -286,7 +286,7 @@ Skloora aims to provide:
 
 ## 👨‍💻 Author
 
-**Saravanakumar**
+**S Saravanakumar**
 
 Skloora is a personal software project focused on learning and implementing real-world backend engineering, system design, scalability, and distributed application concepts.
 
