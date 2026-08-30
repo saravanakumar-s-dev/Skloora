@@ -82,7 +82,7 @@
     </dependencies>
 
     <build>
-        <finalName>Skloora-MainFrame</finalName>
+        <finalName>Skloora-Backend-v3</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
