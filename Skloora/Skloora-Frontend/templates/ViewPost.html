@@ -1,0 +1,2658 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Skloora Feed</title>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100%;
+    }
+
+    body {
+        background: #f3f4f6;
+        font-family: Arial, sans-serif;
+        color: #111827;
+    }
+
+    .header {
+        width: 100%;
+        height: 75px;
+
+        display: flex;
+        align-items: center;
+
+        padding: 0 30px;
+
+        background: linear-gradient(
+            90deg,
+            #0f172a,
+            #1e293b
+        );
+
+        box-shadow:
+            0 4px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .logo-icon {
+        width: 45px;
+        height: 45px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #00d4ff;
+
+        border-radius: 12px;
+
+        margin-right: 12px;
+
+        box-shadow:
+            0 0 15px #00d4ff;
+    }
+
+    .logo-icon span {
+        font-size: 21px;
+        font-weight: bold;
+        color: #0f172a;
+    }
+
+    .brand {
+        font-size: 28px;
+        font-weight: 800;
+
+        letter-spacing: 1px;
+
+        color: white;
+    }
+
+    .brand span {
+        color: #00d4ff;
+
+        text-shadow:
+            0 0 10px #00d4ff;
+    }
+
+    .feed-title {
+        text-align: center;
+
+        margin: 30px 0 25px;
+
+        font-size: 28px;
+        font-weight: 700;
+
+        color: #111827;
+    }
+
+    .feed {
+        width: 100%;
+
+        max-width: 700px;
+
+        margin-left: auto;
+        margin-right: auto;
+
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 50px;
+    }
+
+    .post {
+        width: 100%;
+
+        background: white;
+
+        border-radius: 16px;
+
+        padding: 20px;
+
+        margin-bottom: 25px;
+
+        box-shadow:
+            0 5px 20px rgba(0, 0, 0, 0.08);
+
+        overflow: hidden;
+    }
+
+    .post-user {
+        margin: 0;
+
+        font-size: 17px;
+        font-weight: 700;
+
+        color: #111827;
+
+        word-break: break-word;
+    }
+
+    .post-text {
+        margin-top: 10px;
+        margin-bottom: 16px;
+
+        font-size: 15px;
+
+        line-height: 1.5;
+
+        color: #374151;
+
+        word-break: break-word;
+    }
+
+    .media-container {
+        width: 100%;
+
+        margin-top: 10px;
+        margin-bottom: 15px;
+
+        overflow: hidden;
+
+        border-radius: 12px;
+
+        background: #000;
+    }
+
+    .media-container img {
+        display: block;
+
+        width: 100% !important;
+        max-width: 100% !important;
+
+        height: auto;
+
+        max-height: 550px;
+
+        object-fit: contain;
+
+        margin: 0 auto;
+    }
+
+    .media-container video {
+        display: block;
+
+        width: 100% !important;
+        max-width: 100% !important;
+
+        height: auto;
+
+        max-height: 550px;
+
+        margin: 0 auto;
+    }
+
+    .post-bottom {
+        width: 100%;
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        padding-top: 12px;
+
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .post-date {
+        font-size: 12px;
+
+        color: #6b7280;
+    }
+
+    .like-area {
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+    }
+
+    .like-btn {
+        width: 42px !important;
+        height: 38px;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        background: white;
+
+        border: 1px solid #d1d5db;
+
+        border-radius: 9px;
+
+        font-size: 19px;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+    }
+
+    .like-btn:hover {
+        background: #f3f4f6;
+
+        transform: scale(1.05);
+    }
+
+    .like-count {
+        min-width: 20px;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        color: #374151;
+    }
+
+    .comment-btn {
+        width: 42px;
+        height: 38px;
+
+        margin: 0;
+        padding: 0;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        background: white;
+
+        border: 1px solid #d1d5db;
+
+        border-radius: 9px;
+
+        font-size: 19px;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+    }
+
+    .comment-btn:hover {
+        background: #f3f4f6;
+
+        transform: scale(1.05);
+    }
+
+    .comments-panel {
+        position: fixed;
+
+        top: 75px;
+        right: 0;
+
+        width: 350px;
+        height: calc(100vh - 75px);
+
+        background: white;
+
+        border-left: 1px solid #ddd;
+
+        box-shadow:
+            -5px 0 15px rgba(0, 0, 0, 0.15);
+
+        display: none;
+
+        flex-direction: column;
+
+        z-index: 1000;
+    }
+
+    .comments-header {
+        display: flex;
+
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 15px;
+
+        border-bottom: 1px solid #ddd;
+    }
+
+    .comments-header h2 {
+        margin: 0;
+
+        font-size: 20px;
+    }
+
+    .comments-header button {
+        border: none;
+
+        background: none;
+
+        font-size: 25px;
+
+        cursor: pointer;
+    }
+
+    .comments-list {
+        flex: 1;
+
+        overflow-y: auto;
+
+        padding: 15px;
+    }
+
+    .comment {
+        padding: 10px 12px;
+
+        margin-bottom: 10px;
+
+        background: #f3f4f6;
+
+        border-radius: 10px;
+    }
+
+    .comment strong {
+        display: block;
+
+        font-size: 14px;
+
+        color: #111827;
+
+        word-break: break-word;
+    }
+
+    .comment p {
+        margin: 5px 0 0;
+
+        font-size: 14px;
+
+        color: #374151;
+
+        word-break: break-word;
+    }
+
+    .comment-input-area {
+        display: flex;
+
+        padding: 12px;
+
+        border-top: 1px solid #ddd;
+
+        background: white;
+    }
+
+    .comment-input-area input {
+        flex: 1;
+
+        padding: 10px 14px;
+
+        border: 1px solid #ccc;
+
+        border-radius: 20px;
+
+        outline: none;
+    }
+
+    .comment-input-area button {
+        margin-left: 8px;
+
+        border: none;
+
+        border-radius: 50%;
+
+        width: 40px;
+        height: 40px;
+
+        cursor: pointer;
+
+        background: #111827;
+
+        color: white;
+
+        font-size: 16px;
+    }
+
+    @media (max-width: 700px) {
+
+        .header {
+            padding: 0 15px;
+        }
+
+        .brand {
+            font-size: 24px;
+        }
+
+        .feed-title {
+            font-size: 24px;
+
+            margin-top: 25px;
+        }
+
+        .feed {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .post {
+            padding: 15px;
+
+            border-radius: 12px;
+        }
+
+        .comments-panel {
+            width: 100%;
+        }
+
+    }
+
+</style>
+
+</head>
+
+<body>
+
+
+<div class="header">
+
+    <div class="logo-icon">
+        <span>SK</span>
+    </div>
+
+    <div class="brand">
+        <span>Sk</span>loora
+    </div>
+
+</div>
+
+
+<h2 class="feed-title">
+    Skloora Feed
+</h2>
+
+
+<div class="feed">
+
+
+<div class="post"
+     th:each="post : ${posts}">
+
+    <h3 class="post-user"
+        th:text="${post.post_by}">
+        username
+    </h3>
+
+
+    <p class="post-text"
+       th:text="${post.post_des}">
+        Post description
+    </p>
+
+
+    <div class="media-container"
+         th:if="${post.path != null and !post.path.isEmpty()}">
+
+        <img th:if="${post.media_type == 'img'}"
+             th:src="@{${post.path}}"
+             alt="Post image"
+             loading="lazy"
+             onerror="this.style.display='none';">
+
+
+        <video th:if="${post.media_type == 'video'}"
+               controls
+               preload="metadata">
+
+            <source th:src="@{${post.path}}">
+
+            Your browser does not support video.
+
+        </video>
+
+    </div>
+
+
+    <div class="post-bottom">
+
+
+        <div class="post-date"
+             th:text="${post.post_date}">
+            2026-08-13
+        </div>
+
+
+        <div class="like-area">
+
+            <button
+                class="like-btn"
+                type="button"
+                onclick="likePost(this)">
+                🤍
+            </button>
+
+            <span class="like-count">
+                0
+            </span>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="comment-btn"
+            onclick="openComments(this)">
+            💬
+        </button>
+
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<div id="commentsPanel"
+     class="comments-panel">
+
+
+    <div class="comments-header">
+
+        <h2>
+            Comments
+        </h2>
+
+        <button
+            type="button"
+            onclick="closeComments()">
+            ×
+        </button>
+
+    </div>
+
+
+    <div id="commentsList"
+         class="comments-list">
+    </div>
+
+
+    <div class="comment-input-area">
+
+        <input
+            type="text"
+            id="commentInput"
+            placeholder="Add a comment..."
+            maxlength="1000">
+
+        <button
+            type="button"
+            onclick="addComment()">
+            ➤
+        </button>
+
+    </div>
+
+
+</div>
+
+
+<script th:inline="javascript">
+
+
+let selectedPost = null;
+j
+
+const commentGetUrl =
+    /*[[@{/comments/get}]]*/
+    "/comments/get";
+
+
+const commentAddUrl =
+    /*[[@{/comments/add}]]*/
+    "/comments/add";
+
+
+
+/*
+    =====================================================
+    LIKE SYSTEM
+    =====================================================
+
+    Likes are stored in browser localStorage.
+
+    Storage key:
+
+    sklooraLikes
+
+    Example:
+
+    {
+        "user|post text|date": {
+            "liked": true,
+            "count": 10
+        }
+    }
+
+    This means the likes survive:
+
+    - Page refresh
+    - Browser restart
+    - Returning to the page
+
+    They are NOT stored in PostgreSQL.
+*/
+
+
+function getPostId(postElement) {
+
+    const postBy =
+        postElement
+            .querySelector(".post-user")
+            .innerText
+            .trim();
+
+
+    const postDes =
+        postElement
+            .querySelector(".post-text")
+            .innerText
+            .trim();
+
+
+    const postDate =
+        postElement
+            .querySelector(".post-date")
+            .innerText
+            .trim();
+
+
+    return (
+        postBy +
+        "|" +
+        postDes +
+        "|" +
+        postDate
+    );
+}
+
+
+
+function likePost(button) {
+
+    const post =
+        button.closest(".post");
+
+
+    const countElement =
+        post.querySelector(".like-count");
+
+
+    const postId =
+        getPostId(post);
+
+
+    let likesDB =
+        JSON.parse(
+            localStorage.getItem(
+                "sklooraLikes"
+            ) || "{}"
+        );
+
+
+    /*
+        If this post has never been
+        stored before, create its data.
+    */
+
+    if (!likesDB[postId]) {
+
+        likesDB[postId] = {
+
+            liked: false,
+
+            count:
+                parseInt(
+                    countElement.innerText || "0"
+                )
+
+        };
+
+    }
+
+
+    /*
+        LIKE
+    */
+
+    if (
+        likesDB[postId].liked === false
+    ) {
+
+        likesDB[postId].liked = true;
+
+
+        likesDB[postId].count++;
+
+
+        button.innerText = "❤️";
+
+    }
+
+
+    /*
+        UNLIKE
+    */
+
+    else {
+
+        likesDB[postId].liked = false;
+
+
+        likesDB[postId].count =
+            Math.max(
+                0,
+                likesDB[postId].count - 1
+            );
+
+
+        button.innerText = "🤍";
+
+    }
+
+
+    /*
+        Update visible count.
+    */
+
+    countElement.innerText =
+        likesDB[postId].count;
+
+
+    /*
+        Permanently save the
+        complete likes object.
+    */
+
+    localStorage.setItem(
+        "sklooraLikes",
+        JSON.stringify(likesDB)
+    );
+
+}
+
+
+
+function loadLikes() {
+
+    let likesDB =
+        JSON.parse(
+            localStorage.getItem(
+                "sklooraLikes"
+            ) || "{}"
+        );
+
+
+    document
+        .querySelectorAll(".post")
+        .forEach(post => {
+
+
+            const postId =
+                getPostId(post);
+
+
+            const button =
+                post.querySelector(
+                    ".like-btn"
+                );
+
+
+            const countElement =
+                post.querySelector(
+                    ".like-count"
+                );
+
+
+            /*
+                Check whether this
+                post already has saved data.
+            */
+
+            if (
+                likesDB[postId]
+            ) {
+
+
+                countElement.innerText =
+                    likesDB[postId].count;
+
+
+                if (
+                    likesDB[postId].liked
+                ) {
+
+                    button.innerText =
+                        "❤️";
+
+                }
+
+                else {
+
+                    button.innerText =
+                        "🤍";
+
+                }
+
+            }
+
+
+            else {
+
+                countElement.innerText =
+                    "0";
+
+                button.innerText =
+                    "🤍";
+
+            }
+
+        });
+
+}
+
+
+
+/*
+    =====================================================
+    COMMENTS
+    =====================================================
+*/
+
+
+function openComments(button) {
+
+    selectedPost =
+        button.closest(".post");
+
+
+    document
+        .getElementById("commentsPanel")
+        .style.display = "flex";
+
+
+    loadComments();
+
+}
+
+
+
+function closeComments() {
+
+    document
+        .getElementById("commentsPanel")
+        .style.display = "none";
+
+
+    selectedPost = null;
+
+
+    document
+        .getElementById("commentsList")
+        .innerHTML = "";
+
+}
+
+
+
+function loadComments() {
+
+    if (
+        selectedPost === null
+    ) {
+
+        return;
+
+    }
+
+
+    const postBy =
+        selectedPost
+            .querySelector(".post-user")
+            .innerText
+            .trim();
+
+
+    const postDes =
+        selectedPost
+            .querySelector(".post-text")
+            .innerText
+            .trim();
+
+
+    const postDate =
+        selectedPost
+            .querySelector(".post-date")
+            .innerText
+            .trim();
+
+
+    const params =
+        new URLSearchParams();
+
+
+    params.append(
+        "post_by",
+        postBy
+    );
+
+
+    params.append(
+        "post_des",
+        postDes
+    );
+
+
+    params.append(
+        "post_date",
+        postDate
+    );
+
+
+    fetch(
+        commentGetUrl +
+        "?" +
+        params.toString(),
+        {
+
+            method: "GET",
+
+            credentials:
+                "same-origin"
+
+        }
+    )
+
+
+    .then(response => {
+
+        if (!response.ok) {
+
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
+
+        }
+
+
+        return response.json();
+
+    })
+
+
+    .then(comments => {
+
+
+        const list =
+            document.getElementById(
+                "commentsList"
+            );
+
+
+        list.innerHTML = "";
+
+
+        if (
+            comments.length === 0
+        ) {
+
+            list.innerHTML = `
+
+                <p style="
+                    text-align:center;
+                    color:#777;
+                ">
+
+                    No comments yet.
+
+                </p>
+
+            `;
+
+            return;
+
+        }
+
+
+        comments.forEach(comment => {
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "comment";
+
+
+            const username =
+                document.createElement(
+                    "strong"
+                );
+
+
+            username.innerText =
+                comment.comment_by;
+
+
+            const text =
+                document.createElement(
+                    "p"
+                );
+
+
+            text.innerText =
+                comment.comment_text;
+
+
+            div.appendChild(
+                username
+            );
+
+
+            div.appendChild(
+                text
+            );
+
+
+            list.appendChild(
+                div
+            );
+
+        });
+
+    })
+
+
+    .catch(error => {
+
+        console.error(
+            "Error loading comments:",
+            error
+        );
+
+    });
+
+}
+
+
+
+function addComment() {
+
+    if (
+        selectedPost === null
+    ) {
+
+        console.error(
+            "No post selected"
+        );
+
+        return;
+
+    }
+
+
+    const input =
+        document.getElementById(
+            "commentInput"
+        );
+
+
+    const text =
+        input.value.trim();
+
+
+    if (
+        text === ""
+    ) {
+
+        return;
+
+    }
+
+
+    const postBy =
+        selectedPost
+            .querySelector(".post-user")
+            .innerText
+            .trim();
+
+
+    const postDes =
+        selectedPost
+            .querySelector(".post-text")
+            .innerText
+            .trim();
+
+
+    const postDate =
+        selectedPost
+            .querySelector(".post-date")
+            .innerText
+            .trim();
+
+
+    const params =
+        new URLSearchParams();
+
+
+    params.append(
+        "post_by",
+        postBy
+    );
+
+
+    params.append(
+        "post_des",
+        postDes
+    );
+
+
+    params.append(
+        "post_date",
+        postDate
+    );
+
+
+    params.append(
+        "comment_text",
+        text
+    );
+
+
+    fetch(
+        commentAddUrl,
+        {
+
+            method: "POST",
+
+            credentials:
+                "same-origin",
+
+            headers: {
+
+                "Content-Type":
+                    "application/x-www-form-urlencoded"
+
+            },
+
+            body:
+                params.toString()
+
+        }
+    )
+
+
+    .then(response => {
+
+        if (!response.ok) {
+
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
+
+        }
+
+
+        return response.text();
+
+    })
+
+
+    .then(result => {
+
+
+        console.log(
+            "Server:",
+            result
+        );
+
+
+        if (
+            result ===
+            "User not logged in"
+        ) {
+
+            alert(
+                "Please login first."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            result ===
+            "Invalid login"
+        ) {
+
+            alert(
+                "Your login session is invalid."
+            );
+
+            return;
+
+        }
+
+
+        input.value = "";
+
+
+        loadComments();
+
+    })
+
+
+    .catch(error => {
+
+        console.error(
+            "Error adding comment:",
+            error
+        );
+
+    });
+
+}
+
+
+
+/*
+    Press ENTER to add comment.
+*/
+
+document
+    .getElementById("commentInput")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                event.preventDefault();
+
+                addComment();
+
+            }
+
+        }
+    );
+
+
+
+/*
+    Load saved likes when
+    the page opens.
+*/
+
+window.addEventListener(
+    "load",
+    function() {
+
+        loadLikes();
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+=======
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Skloora Feed</title>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100%;
+    }
+
+    body {
+        background: #f3f4f6;
+        font-family: Arial, sans-serif;
+        color: #111827;
+    }
+
+    .header {
+        width: 100%;
+        height: 75px;
+
+        display: flex;
+        align-items: center;
+
+        padding: 0 30px;
+
+        background: linear-gradient(
+            90deg,
+            #0f172a,
+            #1e293b
+        );
+
+        box-shadow:
+            0 4px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .logo-icon {
+        width: 45px;
+        height: 45px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #00d4ff;
+
+        border-radius: 12px;
+
+        margin-right: 12px;
+
+        box-shadow:
+            0 0 15px #00d4ff;
+    }
+
+    .logo-icon span {
+        font-size: 21px;
+        font-weight: bold;
+        color: #0f172a;
+    }
+
+    .brand {
+        font-size: 28px;
+        font-weight: 800;
+
+        letter-spacing: 1px;
+
+        color: white;
+    }
+
+    .brand span {
+        color: #00d4ff;
+
+        text-shadow:
+            0 0 10px #00d4ff;
+    }
+
+    .feed-title {
+        text-align: center;
+
+        margin: 30px 0 25px;
+
+        font-size: 28px;
+        font-weight: 700;
+
+        color: #111827;
+    }
+
+    .feed {
+        width: 100%;
+
+        max-width: 700px;
+
+        margin-left: auto;
+        margin-right: auto;
+
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 50px;
+    }
+
+    .post {
+        width: 100%;
+
+        background: white;
+
+        border-radius: 16px;
+
+        padding: 20px;
+
+        margin-bottom: 25px;
+
+        box-shadow:
+            0 5px 20px rgba(0, 0, 0, 0.08);
+
+        overflow: hidden;
+    }
+
+    .post-user {
+        margin: 0;
+
+        font-size: 17px;
+        font-weight: 700;
+
+        color: #111827;
+
+        word-break: break-word;
+    }
+
+    .post-text {
+        margin-top: 10px;
+        margin-bottom: 16px;
+
+        font-size: 15px;
+
+        line-height: 1.5;
+
+        color: #374151;
+
+        word-break: break-word;
+    }
+
+    .media-container {
+        width: 100%;
+
+        margin-top: 10px;
+        margin-bottom: 15px;
+
+        overflow: hidden;
+
+        border-radius: 12px;
+
+        background: #000;
+    }
+
+    .media-container img {
+        display: block;
+
+        width: 100% !important;
+        max-width: 100% !important;
+
+        height: auto;
+
+        max-height: 550px;
+
+        object-fit: contain;
+
+        margin: 0 auto;
+    }
+
+    .media-container video {
+        display: block;
+
+        width: 100% !important;
+        max-width: 100% !important;
+
+        height: auto;
+
+        max-height: 550px;
+
+        margin: 0 auto;
+    }
+
+    .post-bottom {
+        width: 100%;
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        padding-top: 12px;
+
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .post-date {
+        font-size: 12px;
+
+        color: #6b7280;
+    }
+
+    .like-area {
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+    }
+
+    .like-btn {
+        width: 42px !important;
+        height: 38px;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        background: white;
+
+        border: 1px solid #d1d5db;
+
+        border-radius: 9px;
+
+        font-size: 19px;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+    }
+
+    .like-btn:hover {
+        background: #f3f4f6;
+
+        transform: scale(1.05);
+    }
+
+    .like-count {
+        min-width: 20px;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        color: #374151;
+    }
+
+    .comment-btn {
+        width: 42px;
+        height: 38px;
+
+        margin: 0;
+        padding: 0;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        background: white;
+
+        border: 1px solid #d1d5db;
+
+        border-radius: 9px;
+
+        font-size: 19px;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+    }
+
+    .comment-btn:hover {
+        background: #f3f4f6;
+
+        transform: scale(1.05);
+    }
+
+    .comments-panel {
+        position: fixed;
+
+        top: 75px;
+        right: 0;
+
+        width: 350px;
+        height: calc(100vh - 75px);
+
+        background: white;
+
+        border-left: 1px solid #ddd;
+
+        box-shadow:
+            -5px 0 15px rgba(0, 0, 0, 0.15);
+
+        display: none;
+
+        flex-direction: column;
+
+        z-index: 1000;
+    }
+
+    .comments-header {
+        display: flex;
+
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 15px;
+
+        border-bottom: 1px solid #ddd;
+    }
+
+    .comments-header h2 {
+        margin: 0;
+
+        font-size: 20px;
+    }
+
+    .comments-header button {
+        border: none;
+
+        background: none;
+
+        font-size: 25px;
+
+        cursor: pointer;
+    }
+
+    .comments-list {
+        flex: 1;
+
+        overflow-y: auto;
+
+        padding: 15px;
+    }
+
+    .comment {
+        padding: 10px 12px;
+
+        margin-bottom: 10px;
+
+        background: #f3f4f6;
+
+        border-radius: 10px;
+    }
+
+    .comment strong {
+        display: block;
+
+        font-size: 14px;
+
+        color: #111827;
+
+        word-break: break-word;
+    }
+
+    .comment p {
+        margin: 5px 0 0;
+
+        font-size: 14px;
+
+        color: #374151;
+
+        word-break: break-word;
+    }
+
+    .comment-input-area {
+        display: flex;
+
+        padding: 12px;
+
+        border-top: 1px solid #ddd;
+
+        background: white;
+    }
+
+    .comment-input-area input {
+        flex: 1;
+
+        padding: 10px 14px;
+
+        border: 1px solid #ccc;
+
+        border-radius: 20px;
+
+        outline: none;
+    }
+
+    .comment-input-area button {
+        margin-left: 8px;
+
+        border: none;
+
+        border-radius: 50%;
+
+        width: 40px;
+        height: 40px;
+
+        cursor: pointer;
+
+        background: #111827;
+
+        color: white;
+
+        font-size: 16px;
+    }
+
+    @media (max-width: 700px) {
+
+        .header {
+            padding: 0 15px;
+        }
+
+        .brand {
+            font-size: 24px;
+        }
+
+        .feed-title {
+            font-size: 24px;
+
+            margin-top: 25px;
+        }
+
+        .feed {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .post {
+            padding: 15px;
+
+            border-radius: 12px;
+        }
+
+        .comments-panel {
+            width: 100%;
+        }
+
+    }
+
+</style>
+
+</head>
+
+<body>
+
+
+<div class="header">
+
+    <div class="logo-icon">
+        <span>SK</span>
+    </div>
+
+    <div class="brand">
+        <span>Sk</span>loora
+    </div>
+
+</div>
+
+
+<h2 class="feed-title">
+    Skloora Feed
+</h2>
+
+
+<div class="feed">
+
+
+<div class="post"
+     th:each="post : ${posts}">
+
+    <h3 class="post-user"
+        th:text="${post.post_by}">
+        username
+    </h3>
+
+
+    <p class="post-text"
+       th:text="${post.post_des}">
+        Post description
+    </p>
+
+
+    <div class="media-container"
+         th:if="${post.path != null and !post.path.isEmpty()}">
+
+        <img th:if="${post.media_type == 'img'}"
+             th:src="@{${post.path}}"
+             alt="Post image"
+             loading="lazy"
+             onerror="this.style.display='none';">
+
+
+        <video th:if="${post.media_type == 'video'}"
+               controls
+               preload="metadata">
+
+            <source th:src="@{${post.path}}">
+
+            Your browser does not support video.
+
+        </video>
+
+    </div>
+
+
+    <div class="post-bottom">
+
+
+        <div class="post-date"
+             th:text="${post.post_date}">
+            2026-08-13
+        </div>
+
+
+        <div class="like-area">
+
+            <button
+                class="like-btn"
+                type="button"
+                onclick="likePost(this)">
+                🤍
+            </button>
+
+            <span class="like-count">
+                0
+            </span>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="comment-btn"
+            onclick="openComments(this)">
+            💬
+        </button>
+
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<div id="commentsPanel"
+     class="comments-panel">
+
+
+    <div class="comments-header">
+
+        <h2>
+            Comments
+        </h2>
+
+        <button
+            type="button"
+            onclick="closeComments()">
+            ×
+        </button>
+
+    </div>
+
+
+    <div id="commentsList"
+         class="comments-list">
+    </div>
+
+
+    <div class="comment-input-area">
+
+        <input
+            type="text"
+            id="commentInput"
+            placeholder="Add a comment..."
+            maxlength="1000">
+
+        <button
+            type="button"
+            onclick="addComment()">
+            ➤
+        </button>
+
+    </div>
+
+
+</div>
+
+
+<script th:inline="javascript">
+
+
+let selectedPost = null;
+
+
+const commentGetUrl =
+    /*[[@{/comments/get}]]*/
+    "/comments/get";
+
+
+const commentAddUrl =
+    /*[[@{/comments/add}]]*/
+    "/comments/add";
+
+
+
+/*
+    =====================================================
+    LIKE SYSTEM
+    =====================================================
+
+    Likes are stored in browser localStorage.
+
+    Storage key:
+
+    sklooraLikes
+
+    Example:
+
+    {
+        "user|post text|date": {
+            "liked": true,
+            "count": 10
+        }
+    }
+
+    This means the likes survive:
+
+    - Page refresh
+    - Browser restart
+    - Returning to the page
+
+    They are NOT stored in PostgreSQL.
+*/
+
+
+function getPostId(postElement) {
+
+    const postBy =
+        postElement
+            .querySelector(".post-user")
+            .innerText
+            .trim();
+
+
+    const postDes =
+        postElement
+            .querySelector(".post-text")
+            .innerText
+            .trim();
+
+
+    const postDate =
+        postElement
+            .querySelector(".post-date")
+            .innerText
+            .trim();
+
+
+    return (
+        postBy +
+        "|" +
+        postDes +
+        "|" +
+        postDate
+    );
+}
+
+
+
+function likePost(button) {
+
+    const post =
+        button.closest(".post");
+
+
+    const countElement =
+        post.querySelector(".like-count");
+
+
+    const postId =
+        getPostId(post);
+
+
+    let likesDB =
+        JSON.parse(
+            localStorage.getItem(
+                "sklooraLikes"
+            ) || "{}"
+        );
+
+
+    /*
+        If this post has never been
+        stored before, create its data.
+    */
+
+    if (!likesDB[postId]) {
+
+        likesDB[postId] = {
+
+            liked: false,
+
+            count:
+                parseInt(
+                    countElement.innerText || "0"
+                )
+
+        };
+
+    }
+
+
+    /*
+        LIKE
+    */
+
+    if (
+        likesDB[postId].liked === false
+    ) {
+
+        likesDB[postId].liked = true;
+
+
+        likesDB[postId].count++;
+
+
+        button.innerText = "❤️";
+
+    }
+
+
+    /*
+        UNLIKE
+    */
+
+    else {
+
+        likesDB[postId].liked = false;
+
+
+        likesDB[postId].count =
+            Math.max(
+                0,
+                likesDB[postId].count - 1
+            );
+
+
+        button.innerText = "🤍";
+
+    }
+
+
+    /*
+        Update visible count.
+    */
+
+    countElement.innerText =
+        likesDB[postId].count;
+
+
+    /*
+        Permanently save the
+        complete likes object.
+    */
+
+    localStorage.setItem(
+        "sklooraLikes",
+        JSON.stringify(likesDB)
+    );
+
+}
+
+
+
+function loadLikes() {
+
+    let likesDB =
+        JSON.parse(
+            localStorage.getItem(
+                "sklooraLikes"
+            ) || "{}"
+        );
+
+
+    document
+        .querySelectorAll(".post")
+        .forEach(post => {
+
+
+            const postId =
+                getPostId(post);
+
+
+            const button =
+                post.querySelector(
+                    ".like-btn"
+                );
+
+
+            const countElement =
+                post.querySelector(
+                    ".like-count"
+                );
+
+
+            /*
+                Check whether this
+                post already has saved data.
+            */
+
+            if (
+                likesDB[postId]
+            ) {
+
+
+                countElement.innerText =
+                    likesDB[postId].count;
+
+
+                if (
+                    likesDB[postId].liked
+                ) {
+
+                    button.innerText =
+                        "❤️";
+
+                }
+
+                else {
+
+                    button.innerText =
+                        "🤍";
+
+                }
+
+            }
+
+
+            else {
+
+                countElement.innerText =
+                    "0";
+
+                button.innerText =
+                    "🤍";
+
+            }
+
+        });
+
+}
+
+
+
+/*
+    =====================================================
+    COMMENTS
+    =====================================================
+*/
+
+
+function openComments(button) {
+
+    selectedPost =
+        button.closest(".post");
+
+
+    document
+        .getElementById("commentsPanel")
+        .style.display = "flex";
+
+
+    loadComments();
+
+}
+
+
+
+function closeComments() {
+
+    document
+        .getElementById("commentsPanel")
+        .style.display = "none";
+
+
+    selectedPost = null;
+
+
+    document
+        .getElementById("commentsList")
+        .innerHTML = "";
+
+}
+
+
+
+function loadComments() {
+
+    if (
+        selectedPost === null
+    ) {
+
+        return;
+
+    }
+
+
+    const postBy =
+        selectedPost
+            .querySelector(".post-user")
+            .innerText
+            .trim();
+
+
+    const postDes =
+        selectedPost
+            .querySelector(".post-text")
+            .innerText
+            .trim();
+
+
+    const postDate =
+        selectedPost
+            .querySelector(".post-date")
+            .innerText
+            .trim();
+
+
+    const params =
+        new URLSearchParams();
+
+
+    params.append(
+        "post_by",
+        postBy
+    );
+
+
+    params.append(
+        "post_des",
+        postDes
+    );
+
+
+    params.append(
+        "post_date",
+        postDate
+    );
+
+
+    fetch(
+        commentGetUrl +
+        "?" +
+        params.toString(),
+        {
+
+            method: "GET",
+
+            credentials:
+                "same-origin"
+
+        }
+    )
+
+
+    .then(response => {
+
+        if (!response.ok) {
+
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
+
+        }
+
+
+        return response.json();
+
+    })
+
+
+    .then(comments => {
+
+
+        const list =
+            document.getElementById(
+                "commentsList"
+            );
+
+
+        list.innerHTML = "";
+
+
+        if (
+            comments.length === 0
+        ) {
+
+            list.innerHTML = `
+
+                <p style="
+                    text-align:center;
+                    color:#777;
+                ">
+
+                    No comments yet.
+
+                </p>
+
+            `;
+
+            return;
+
+        }
+
+
+        comments.forEach(comment => {
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "comment";
+
+
+            const username =
+                document.createElement(
+                    "strong"
+                );
+
+
+            username.innerText =
+                comment.comment_by;
+
+
+            const text =
+                document.createElement(
+                    "p"
+                );
+
+
+            text.innerText =
+                comment.comment_text;
+
+
+            div.appendChild(
+                username
+            );
+
+
+            div.appendChild(
+                text
+            );
+
+
+            list.appendChild(
+                div
+            );
+
+        });
+
+    })
+
+
+    .catch(error => {
+
+        console.error(
+            "Error loading comments:",
+            error
+        );
+
+    });
+
+}
+
+
+
+function addComment() {
+
+    if (
+        selectedPost === null
+    ) {
+
+        console.error(
+            "No post selected"
+        );
+
+        return;
+
+    }
+
+
+    const input =
+        document.getElementById(
+            "commentInput"
+        );
+
+
+    const text =
+        input.value.trim();
+
+
+    if (
+        text === ""
+    ) {
+
+        return;
+
+    }
+
+
+    const postBy =
+        selectedPost
+            .querySelector(".post-user")
+            .innerText
+            .trim();
+
+
+    const postDes =
+        selectedPost
+            .querySelector(".post-text")
+            .innerText
+            .trim();
+
+
+    const postDate =
+        selectedPost
+            .querySelector(".post-date")
+            .innerText
+            .trim();
+
+
+    const params =
+        new URLSearchParams();
+
+
+    params.append(
+        "post_by",
+        postBy
+    );
+
+
+    params.append(
+        "post_des",
+        postDes
+    );
+
+
+    params.append(
+        "post_date",
+        postDate
+    );
+
+
+    params.append(
+        "comment_text",
+        text
+    );
+
+
+    fetch(
+        commentAddUrl,
+        {
+
+            method: "POST",
+
+            credentials:
+                "same-origin",
+
+            headers: {
+
+                "Content-Type":
+                    "application/x-www-form-urlencoded"
+
+            },
+
+            body:
+                params.toString()
+
+        }
+    )
+
+
+    .then(response => {
+
+        if (!response.ok) {
+
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
+
+        }
+
+
+        return response.text();
+
+    })
+
+
+    .then(result => {
+
+
+        console.log(
+            "Server:",
+            result
+        );
+
+
+        if (
+            result ===
+            "User not logged in"
+        ) {
+
+            alert(
+                "Please login first."
+            );
+
+            return;
+
+        }
+
+
+        if (
+            result ===
+            "Invalid login"
+        ) {
+
+            alert(
+                "Your login session is invalid."
+            );
+
+            return;
+
+        }
+
+
+        input.value = "";
+
+
+        loadComments();
+
+    })
+
+
+    .catch(error => {
+
+        console.error(
+            "Error adding comment:",
+            error
+        );
+
+    });
+
+}
+
+
+
+/*
+    Press ENTER to add comment.
+*/
+
+document
+    .getElementById("commentInput")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                event.preventDefault();
+
+                addComment();
+
+            }
+
+        }
+    );
+
+
+
+/*
+    Load saved likes when
+    the page opens.
+*/
+
+window.addEventListener(
+    "load",
+    function() {
+
+        loadLikes();
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+>>>>>>> 43f612d06bc51106f5a6a8b8cdcc7ce5570bc9ec
+</html>

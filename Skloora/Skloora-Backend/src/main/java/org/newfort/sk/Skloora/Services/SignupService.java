@@ -1,0 +1,45 @@
+<<<<<<< HEAD
+package org.newfort.sk.Skloora.Services;
+
+import org.newfort.sk.Skloora.Repository.SignupRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+=======
+package org.newfort.sk.Skloora.Services;
+
+import org.newfort.sk.Skloora.Repository.SignupRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+@Service
+public class SignupService {
+
+    @Autowired
+    private SignupRepo SR;
+
+    public String SignupServ(String email, String username, String password, String des) throws SQLException, IOException {
+
+        if (SR.check(email, username)) {
+            return "user already exists";
+        } else {
+            String result = SR.save(email, username, password, des);
+
+            if (result.equalsIgnoreCase("Success")) {
+
+                return "Success";
+            } else {
+                return "Failed";
+            }
+        }
+
+    }
+
+}
+>>>>>>> 43f612d06bc51106f5a6a8b8cdcc7ce5570bc9ec
